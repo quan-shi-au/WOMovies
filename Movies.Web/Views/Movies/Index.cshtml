@@ -1,0 +1,13 @@
+﻿@model Movies.Web.Models.Movies.SearchResults
+@{
+    ViewData["Title"] = "Movies List";
+}
+    <section class="movies" id="movies">
+        <h2>Featured Movies</h2>
+        <div class="row">
+            @foreach (var movie in Model.Results)
+            {
+                <partial name="MovieResult" model="movie" />
+            }
+            </div>
+    </section>
