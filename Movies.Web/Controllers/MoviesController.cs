@@ -33,9 +33,10 @@ namespace Movies.Web.Controllers
 
         public async Task<IActionResult> Details(string imdbId)
         {
-            var MovieDetailResponse = await _movieApiService.GetDetail(imdbId);
+            var movieDetailResponse = await _movieApiService.GetDetail(imdbId);
+            ViewBag.JsonLdObject = _jsonLdService.GetMovieDetailObject(movieDetailResponse);
 
-            return View(MovieDetailResponse);
+            return View(movieDetailResponse);
         }
 
         [HttpPost]

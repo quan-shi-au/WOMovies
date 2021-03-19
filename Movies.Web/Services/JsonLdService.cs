@@ -59,5 +59,43 @@ namespace Movies.Web.Services
 
         }
 
+        public JObject GetMovieDetailObject(MovieDetailResponse movie)
+        {
+            var _docJson = @"
+{
+    '@id': 'http://example.org/ld-experts',
+    'http://schema.org/name': 'LD Experts',
+    'http://schema.org/member': [{
+        '@type': 'http://schema.org/Person',
+        'http://schema.org/name': 'Manu Sporny',
+        'http://schema.org/url': {'@id': 'http://manu.sporny.org/'},
+        'http://schema.org/image': {'@id': 'http://manu.sporny.org/images/manu.png'}
+    }]
+}
+";
+
+            var _contextJson = @"
+{
+    'name': 'http://schema.org/name',
+    'member': 'http://schema.org/member',
+    'homepage': {'@id': 'http://schema.org/url', '@type': '@id'},
+    'image': {'@id': 'http://schema.org/image', '@type': '@id'},
+    'Person': 'http://schema.org/Person',
+    '@vocab': 'http://example.org/',
+    '@base': 'http://example.org/'
+}";
+
+            var doc = JObject.Parse(_docJson);
+            var context = JObject.Parse(_contextJson);
+            var opts = new JsonLdOptions();
+            var compacted = JsonLdProcessor.Compact(doc, context, opts);
+
+
+            return compacted;
+
+        }
+
+
+
     }
 }
