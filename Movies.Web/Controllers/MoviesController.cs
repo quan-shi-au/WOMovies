@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Web.Models.Movies;
 using Movies.Web.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
 {
@@ -13,13 +14,11 @@ namespace Movies.Web.Controllers
             _movieApiService = movieApiService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var x = _movieApiService.SearchByTitle("");
+            var searchResponse = await _movieApiService.SearchByTitle("");
 
-            var model = new SearchResults(null);
-            model.LoadSampleData();
-            return View(model);
+            return View(searchResponse);
         }
 
         public IActionResult Details()
