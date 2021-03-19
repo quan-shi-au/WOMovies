@@ -1,9 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using Movies.Web.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace Movies.Web.Models.Movies
 {
     public class SearchResults
     {
+        private readonly IMovieApiService _movieApiService;
+
+        public SearchResults(IMovieApiService movieApiService)
+        {
+            _movieApiService = movieApiService;
+        }
+
         public IList<SearchResult> Results { get; set; }
 
         //TODO: Delete this. This is just a place holder method to show data displaying
