@@ -15,7 +15,7 @@ namespace Movies.Web.Services
         {
             HttpClient client = new HttpClient();
 
-            var requestUri = new Uri($"http://www.omdbapi.com/?apikey=4f731024&s=Avengers");
+            var requestUri = new Uri($"http://www.omdbapi.com/?apikey=4f731024&s={title}");
             var response = await client.GetAsync(requestUri);
 
             var txtResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);

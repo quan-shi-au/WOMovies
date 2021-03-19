@@ -7,6 +7,7 @@ namespace Movies.Web.Models
 {
     public class SearchResponse
     {
-        public List<MovieResponse> Search { get; set; }
+        public string Title { get; set; }
+        public List<MovieResponse> Search { get; set; } = new List<MovieResponse>();
     }
 }

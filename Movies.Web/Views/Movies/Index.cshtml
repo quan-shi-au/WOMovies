@@ -2,15 +2,42 @@
 @{ ViewData["Title"] = "Movies List"; }
 
 <section>
-    <a class="btn btn-primary" href="@Url.Action("YourAction","YourController")">Click</a>
+    <form method="post" asp-controller="Movies" asp-action="Index">
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h2>
+                Search By Title
+            </h2>
+            <div>
+                <input type="text" id="title" name="title"/>
+                <input type="submit" value="Search" />
+            </div>
+        </div>
+        <hr />
+    </form>
 </section>
 
 <section class="movies" id="movies">
     <h2>Featured Movies</h2>
     <div class="row">
-        @foreach (var movie in Model.Search)
+        @if (Model.Search.Count == 0 && string.IsNullOrEmpty(Model.Title))
         {
-            <partial name="MovieResult" model="movie" />            
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                Please input the title of the movie such as Avengers, test and click Search button to start.
+            </div>
+        }
+        else if (Model.Search.Count == 0 && !string.IsNullOrEmpty(Model.Title))
+        {
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                No result found for @Model.Title 
+            </div>
+        }
+        else
+        {
+            foreach (var movie in Model.Search)
+            {
+            <partial name="MovieResult" model="movie" />
+            }
         }
     </div>
 </section>
