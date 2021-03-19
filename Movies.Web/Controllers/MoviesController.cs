@@ -47,22 +47,18 @@ namespace Movies.Web.Controllers
 {
     '@id': 'http://example.org/movies',
     'http://schema.org/name': 'Movies',
-    'http://schema.org/items': [{
-        '@type': 'http://schema.org/Movie',
-        'http://schema.org/name': 'Manu Sporny',
-        'http://schema.org/year': {'@id': 'http://manu.sporny.org/'},
-        'http://schema.org/image': {'@id': 'http://manu.sporny.org/images/manu.png'}
-    },{
-        '@type': 'http://schema.org/Movie',
-        'http://schema.org/name': 'Manu Sam',
-        'http://schema.org/year': {'@id': 'http://hi.sporny.org/'},
-        'http://schema.org/image': {'@id': 'http://xx.sporny.org/images/manu.png'}
-    }";
+    'http://schema.org/items': [";
 
+            var isFirst = true;
             foreach (var movie in movies)
             {
+                if (isFirst)
+                    isFirst = false;
+                else
+                    movieList += ",";
+
                 movieList += @"
-,{
+    {
         '@type': 'http://schema.org/Movie',
         'http://schema.org/name': '" + movie.Title.Replace("'", "") + @"',
         'http://schema.org/year': {'@id': '" + movie.Year + @"'},
@@ -76,8 +72,8 @@ movieList += "]}";
             var _contextJson = @"
 {
     'name': 'http://schema.org/name',
-    'member': 'http://schema.org/items',
-    'homepage': {'@id': 'http://schema.org/year', '@type': '@id'},
+    'list': 'http://schema.org/items',
+    'year': {'@id': 'http://schema.org/year', '@type': '@id'},
     'image': {'@id': 'http://schema.org/image', '@type': '@id'},
     'Movie': 'http://schema.org/Movie'
 }
