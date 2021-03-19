@@ -31,9 +31,11 @@ namespace Movies.Web.Controllers
             return View(new SearchResponse());
         }
 
-        public IActionResult Details()
+        public async Task<IActionResult> Details(string imdbId)
         {
-            return View();
+            var MovieDetailResponse = await _movieApiService.GetDetail(imdbId);
+
+            return View(MovieDetailResponse);
         }
 
         [HttpPost]

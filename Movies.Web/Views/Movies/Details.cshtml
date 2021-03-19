@@ -1,1 +1,191 @@
-﻿@model Movies.Web.Models.Movies.Details
+﻿@model Movies.Web.Models.MovieDetailResponse
+
+<div class="row col-lg-12 col-md-12 col-sm-12">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <img src="@Model.Poster" alt="Movie" class="w-100">
+
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+
+        <div class="movie-detail-label">
+            Title
+        </div>
+        <div>
+            @Model.Title
+        </div>
+
+        <div class="movie-detail-label">
+            Year
+        </div>
+        <div>
+            @Model.Year
+        </div>
+
+
+        <div class="movie-detail-label">
+            Rated
+        </div>
+        <div>
+            @Model.Rated
+        </div>
+
+        <div class="movie-detail-label">
+            Released
+        </div>
+        <div>
+            @Model.Released
+        </div>
+
+        <div class="movie-detail-label">
+            Runtime
+        </div>
+        <div>
+            @Model.Runtime
+        </div>
+
+
+        <div class="movie-detail-label">
+            Genre
+        </div>
+        <div>
+            @Model.Genre
+        </div>
+
+
+        <div class="movie-detail-label">
+            Director
+        </div>
+        <div>
+            @Model.Director
+        </div>
+
+        <div class="movie-detail-label">
+            Writer
+        </div>
+        <div>
+            @Model.Writer
+        </div>
+
+        <div class="movie-detail-label">
+            Actors
+        </div>
+        <div>
+            @Model.Actors
+        </div>
+
+        <div class="movie-detail-label">
+            Plot
+        </div>
+        <div>
+            @Model.Plot
+        </div>
+
+        <div class="movie-detail-label">
+            Language
+        </div>
+        <div>
+            @Model.Language
+        </div>
+
+        <div class="movie-detail-label">
+            Country
+        </div>
+        <div>
+            @Model.Country
+        </div>
+
+
+        <div class="movie-detail-label">
+            Awards
+        </div>
+        <div>
+            @Model.Awards
+        </div>
+
+        @foreach (var rating in Model.Ratings)
+        {
+    <div class="movie-detail-label">
+        Rating from @rating.Source
+    </div>
+                    <div>
+                        @rating.Value
+                    </div>}
+
+        <div class="movie-detail-label">
+            Metascore
+        </div>
+        <div>
+            @Model.Metascore
+        </div>
+
+        <div class="movie-detail-label">
+            imdbRating
+        </div>
+        <div>
+            @Model.imdbRating
+        </div>
+
+        <div class="movie-detail-label">
+            imdbVotes
+        </div>
+        <div>
+            @Model.imdbVotes
+        </div>
+
+        <div class="movie-detail-label">
+            imdbID
+        </div>
+        <div>
+            @Model.imdbID
+        </div>
+
+        <div class="movie-detail-label">
+            Type
+        </div>
+        <div>
+            @Model.Type
+        </div>
+
+        <div class="movie-detail-label">
+            DVD
+        </div>
+        <div>
+            @Model.DVD
+        </div>
+
+        <div class="movie-detail-label">
+            BoxOffice
+        </div>
+        <div>
+            @Model.BoxOffice
+        </div>
+
+        <div class="movie-detail-label">
+            Production
+        </div>
+        <div>
+            @Model.Production
+        </div>
+
+        <div class="movie-detail-label">
+            Website
+        </div>
+        <div>
+            @Model.Website
+        </div>
+
+        <div class="movie-detail-label">
+            Response
+        </div>
+        <div>
+            @Model.Response
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
