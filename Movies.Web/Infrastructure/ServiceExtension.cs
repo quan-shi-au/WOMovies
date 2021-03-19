@@ -13,6 +13,7 @@ namespace Movies.Web.Infrastructure
         public static void RegisterDi(this IServiceCollection services)
         {
             services.AddScoped<IMovieApiService, MovieApiService>();
+            services.AddScoped<IJsonLdService, JsonLdService>();
         }
 
     }

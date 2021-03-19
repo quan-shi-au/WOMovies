@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
-    @if (ViewBag.LdJsonObject != null)
+    @if (ViewBag.JsonLdObject != null)
     {
         <script type="application/ld+json">
-            @Html.Raw(ViewBag.LdJsonObject)
+            @Html.Raw(ViewBag.JsonLdObject)
         </script>
     }
 
