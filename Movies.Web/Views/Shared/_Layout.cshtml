@@ -6,17 +6,17 @@
     <title>@ViewData["Title"] - Movies.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    @if (ViewBag.LdJsonObject != null)
+    {
+        <script type="application/ld+json">
+            @Html.Raw(ViewBag.LdJsonObject)
+        </script>
+    }
+
 </head>
 <body>
     <header>
-
-        @if (ViewBag.LdJsonObject != null)
-        {
-            <script type="application/ld+json">
-            @Html.Raw(ViewBag.LdJsonObject)
-            </script>
-        }
-
     </header>
     <div class="container">
         <main role="main" class="pb-3">
