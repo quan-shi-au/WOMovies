@@ -51,7 +51,6 @@ namespace Movies.Web.Controllers
         [HttpPost]
         public IActionResult Search(string title)
         {
-
             return RedirectToAction("Index", new { title });
         }
 

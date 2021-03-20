@@ -12,7 +12,7 @@ namespace Movies.Web.Services
 {
     public class JsonLdService : IJsonLdService
     {
-        public JObject GetMoviesJObject(List<MovieResponse> movies)
+        public JObject GetMoviesJObject1(List<MovieResponse> movies)
         {
 
             var movieList = @"
@@ -59,6 +59,41 @@ namespace Movies.Web.Services
             return JsonLdProcessor.Compact(movieListJObject, context, opts);
 
         }
+
+        public JObject GetMoviesJObject(List<MovieResponse> movies)
+        {
+            var _docJson = @"
+{
+        '@id': 'http://example.org/movies',
+        'http://schema.org/name': 'Movies',
+        '@type': 'http://schema.org/Movie',
+        'http://schema.org/name': 'Manu Sporny',
+        'http://schema.org/image': {'@id': 'http://manu.sporny.org/images/manu.png'},
+'http://schema.org/dateCreated' : '2020-01-01',
+'http://schema.org/director': 'directoraaa'
+}";
+
+            var _contextJson = @"
+{
+    'name': 'http://schema.org/name',
+    'member': 'http://schema.org/items',
+    'image': {'@id': 'http://schema.org/image', '@type': '@id'},
+    'Movie': 'http://schema.org/Movie',
+    'dateCreated': 'http://schema.org/dateCreated',
+    'director': 'http://schema.org/director'
+}
+";
+
+            var doc = JObject.Parse(_docJson);
+            var context = JObject.Parse(_contextJson);
+            var opts = new JsonLdOptions();
+            var compacted = JsonLdProcessor.Compact(doc, context, opts);
+
+
+            return compacted;
+
+        }
+
 
         public JObject GetMovieDetailObject(MovieDetailResponse movie)
         {
