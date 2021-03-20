@@ -25,10 +25,19 @@ namespace Movies.Web.Controllers
             _jsonLdService = jsonLdService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string title)
         {
-            ViewBag.JsonLdObject = _jsonLdService.GetMoviesJObject(new SearchResponse().Search);
-            return View(new SearchResponse());
+            var searchResponse = new SearchResponse();
+            ViewBag.JsonLdObject = _jsonLdService.GetMoviesJObject(searchResponse.Search);
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                searchResponse = await _movieApiService.SearchByTitle(title);
+                searchResponse.Title = title;
+                ViewBag.JsonLdObject = _jsonLdService.GetMoviesJObject(searchResponse.Search);
+            }
+
+            return View(searchResponse);
         }
 
         public async Task<IActionResult> Details(string imdbId)
@@ -40,13 +49,10 @@ namespace Movies.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string title)
+        public IActionResult Search(string title)
         {
-            var searchResponse = await _movieApiService.SearchByTitle(title);
-            searchResponse.Title = title;
-            ViewBag.JsonLdObject = _jsonLdService.GetMoviesJObject(searchResponse.Search);
 
-            return View("Index", searchResponse);
+            return RedirectToAction("Index", new { title });
         }
 
 
