@@ -27,17 +27,18 @@ namespace Movies.Web.Controllers
 
         public async Task<IActionResult> Index(string title)
         {
-            var searchResponse = new SearchResponse();
-            ViewBag.JsonLdObject = _jsonLdService.GetMoviesJObject(searchResponse.Search);
-
             if (!string.IsNullOrEmpty(title))
             {
-                searchResponse = await _movieApiService.SearchByTitle(title);
+                var searchResponse = await _movieApiService.SearchByTitle(title);
                 searchResponse.Title = title;
-                ViewBag.JsonLdObject = _jsonLdService.GetMoviesJObject(searchResponse.Search);
+
+                if (searchResponse.Search.Count > 0)
+                    ViewBag.JsonLdObject = _jsonLdService.GetMoviesJObject(searchResponse.Search);
+                
+                return View(searchResponse);
             }
 
-            return View(searchResponse);
+            return View(new SearchResponse());
         }
 
         public async Task<IActionResult> Details(string imdbId)

@@ -67,19 +67,7 @@ namespace Movies.Web.Services
         '@id': 'http://example.org/movies',
         'http://schema.org/name': 'Movies',
         '@type': 'http://schema.org/ItemList',
- 'http://schema.org/itemListElement': [{
-        '@type': 'http://schema.org/ListItem',
-'http://schema.org/position': 1,
-        'http://schema.org/item': {
-            '@type': 'http://schema.org/Movie',
-            'http://schema.org/name': 'Manu Sporny',
-            'http://schema.org/image': { '@id': 'http://manu.sporny.org/images/manu.png'},
-            'http://schema.org/dateCreated' : '2020-01-01',
-            'http://schema.org/director': 'directoraaa',
-            'http://schema.org/url': 'test.url'
-        }
-        }]
-}";
+ 'http://schema.org/itemListElement': [";
 
             var _contextJson = @"
 {
@@ -96,6 +84,33 @@ namespace Movies.Web.Services
     'director': 'http://schema.org/director'
 }
 ";
+
+            var position = 1;
+            foreach (var movie in movies)
+            {
+                if (position > 1)
+                    _docJson += ",";
+
+                _docJson += @"
+    {
+        '@type': 'http://schema.org/ListItem',
+'http://schema.org/position': " + position + @",
+        'http://schema.org/item': {
+            '@type': 'http://schema.org/Movie',
+            'http://schema.org/name': '" + movie.Title.EscapeString() + @"',
+            'http://schema.org/image': { '@id': '" + movie.Poster + @"'},
+            'http://schema.org/dateCreated' : '" + movie.Year.ValidateYear() + @"',
+            'http://schema.org/director': 'n/a',
+            'http://schema.org/url': '" + movie.Poster + @"'
+            }
+        }
+";
+                position++;
+            }
+
+            _docJson += "]}";
+
+
 
             var doc = JObject.Parse(_docJson);
             var context = JObject.Parse(_contextJson);
