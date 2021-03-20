@@ -9,7 +9,15 @@ namespace Movies.Web.Infrastructure
             if (string.IsNullOrEmpty(input))
                 return input;
 
-            return input.Replace("'", "\"");
+            return input.Replace("'", "`");
+        }
+
+        public static string UnEscapeString(this string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input;
+
+            return input.Replace("'", "\"").Replace("`", "'");
         }
 
         public static string ValidateYear(this string input)

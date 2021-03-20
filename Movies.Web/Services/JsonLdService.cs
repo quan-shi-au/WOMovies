@@ -55,7 +55,7 @@ namespace Movies.Web.Services
 
             docJson += "]}";
 
-            var doc = JObject.Parse(docJson);
+            var doc = JObject.Parse(docJson.UnEscapeString());
             var context = JObject.Parse(_moviesContextJson);
             var opts = new JsonLdOptions();
             var compacted = JsonLdProcessor.Compact(doc, context, opts);
@@ -102,7 +102,7 @@ namespace Movies.Web.Services
                 '@type': 'http://schema.org/Movie',
                 'http://schema.org/image': {'@id': '" + movie.Poster + @"'},
                 'http://schema.org/dateCreated' : '" + movie.Year.ValidateYear() + @"',
-                'http://schema.org/director': '" + movie.Director + @"',
+                'http://schema.org/director': '" + movie.Director.EscapeString() + @"',
                 'http://schema.org/review': {
                 '@type': 'http://schema.org/Review',
                 'http://schema.org/reviewRating': {
@@ -121,7 +121,7 @@ namespace Movies.Web.Services
 
             docJson += "]}";
 
-            var doc = JObject.Parse(docJson);
+            var doc = JObject.Parse(docJson.UnEscapeString());
             var context = JObject.Parse(_movieContextJson);
             var opts = new JsonLdOptions();
             var compacted = JsonLdProcessor.Compact(doc, context, opts);
@@ -141,7 +141,7 @@ namespace Movies.Web.Services
         private string AddActorsArray(MovieDetailResponse movie, string docJson)
         {
             var isFirst = true;
-            var actors = movie.Actors.Split(",");
+            var actors = movie.Actors.EscapeString().Split(",");
             foreach (var actor in actors)
             {
                 if (isFirst)

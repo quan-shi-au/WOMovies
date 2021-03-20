@@ -1,6 +1,9 @@
 **Configuration**
 * Update ApiKey value for http://www.omdbapi.com/ in appsettings.json
 
+**How to fix "No result found for test" when search**
+* Update ApiKey value for http://www.omdbapi.com/ in appsettings.json
+
 **Tested Environment**
 * VisualStudio 2019
 * Latest Chrome Browser
