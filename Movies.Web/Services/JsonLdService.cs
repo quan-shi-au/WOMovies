@@ -227,7 +227,19 @@ namespace Movies.Web.Services
         'http://schema.org/name': 'Manu Sporny',
         'http://schema.org/image': {'@id': 'http://manu.sporny.org/images/manu.png'},
 'http://schema.org/dateCreated' : '2020-01-01',
-'http://schema.org/director': 'directoraaa'
+'http://schema.org/director': 'directoraaa',
+'http://schema.org/review': {
+    '@type': 'http://schema.org/Review',
+    'http://schema.org/reviewRating': {
+                '@type': 'http://schema.org/Rating',
+                'http://schema.org/ratingValue': '5'
+              },
+              'http://schema.org/author': {
+                '@type': 'http://schema.org/Person',
+                'http://schema.org/name': 'John D.'
+              },
+              'http://schema.org/reviewBody': 'Heartbreaking, inpsiring, moving. Bradley Cooper is a triple threat.'
+}
 }";
 
             var _contextJson = @"
@@ -237,6 +249,11 @@ namespace Movies.Web.Services
     'image': {'@id': 'http://schema.org/image', '@type': '@id'},
     'Movie': 'http://schema.org/Movie',
     'dateCreated': 'http://schema.org/dateCreated',
+    'review': 'http://schema.org/review',
+    'reviewRating': 'http://schema.org/reviewRating',
+    'ratingValue': 'http://schema.org/ratingValue',
+    'reviewBody': 'http://schema.org/reviewBody',
+    'author': 'http://schema.org/author',
     'director': 'http://schema.org/director'
 }
 ";
