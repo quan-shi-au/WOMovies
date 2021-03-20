@@ -88,9 +88,29 @@ namespace Movies.Web.Services
     'http://schema.org/BoxOffice': '" + movie.BoxOffice.EscapeString() + @"',
     'http://schema.org/Production': '" + movie.Production.EscapeString() + @"',
     'http://schema.org/Website': '" + movie.Website.EscapeString() + @"',
-    'http://schema.org/Response': '" + movie.Response.EscapeString() + @"'
-}
+    'http://schema.org/Response': '" + movie.Response.EscapeString() + @"',
+    'http://schema.org/Ratings':[
 ";
+
+            var isFirst = true;
+            foreach (var rating in movie.Ratings)
+            {
+                if (isFirst)
+                    isFirst = false;
+                else
+                    _docJson += ",";
+
+                _docJson += @"
+                {
+                    'http://schema.org/Source': '" + rating.Source + @"',
+                    'http://schema.org/Value': '" + rating.Value + @"'
+                }
+                ";
+            }
+
+            _docJson += "]}";
+
+
 
             var _contextJson = @"
 {
@@ -116,7 +136,10 @@ namespace Movies.Web.Services
     'BoxOffice': 'http://schema.org/BoxOffice',
     'Production': 'http://schema.org/Production',
     'Website': 'http://schema.org/Website',
-    'Response': 'http://schema.org/Response'
+    'Response': 'http://schema.org/Response',
+    'Ratings': 'http://schema.org/Ratings',
+    'Source': 'http://schema.org/Source',
+    'Value': 'http://schema.org/Value'
 }";
 
             var doc = JObject.Parse(_docJson);
