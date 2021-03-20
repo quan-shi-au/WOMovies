@@ -3,10 +3,7 @@ using Movies.Web.Infrastructure;
 using Movies.Web.Models;
 using Movies.Web.Services.Interfaces;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Movies.Web.Services
 {

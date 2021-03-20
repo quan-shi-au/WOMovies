@@ -1,12 +1,6 @@
-﻿using JsonLD.Core;
-using Microsoft.AspNetCore.Mvc;
-using Movies.Web.Infrastructure;
+﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Web.Models;
-using Movies.Web.Models.Movies;
 using Movies.Web.Services.Interfaces;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
