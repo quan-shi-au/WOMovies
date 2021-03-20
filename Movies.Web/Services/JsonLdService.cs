@@ -93,6 +93,8 @@ namespace Movies.Web.Services
 
         public JObject GetMovieDetailObject(MovieDetailResponse movie)
         {
+            var rating = GetRating(movie);
+
             var docJson = @"
             {
                 '@id': 'http://example.org/movies',
@@ -105,13 +107,13 @@ namespace Movies.Web.Services
                 '@type': 'http://schema.org/Review',
                 'http://schema.org/reviewRating': {
                     '@type': 'http://schema.org/Rating',
-                    'http://schema.org/ratingValue': '" + movie.Ratings[0].Value + @"'
+                    'http://schema.org/ratingValue': '" + rating.Value + @"'
                   },
                   'http://schema.org/author': {
                     '@type': 'http://schema.org/Person',
-                    'http://schema.org/name': '" + movie.Ratings[0].Source + @"'
+                    'http://schema.org/name': '" + rating.Source + @"'
                   },
-                  'http://schema.org/reviewBody': '" + movie.Ratings[0].Source + @"'
+                  'http://schema.org/reviewBody': '" + rating.Source + @"'
                 },
                 'http://schema.org/actor': [";
 
@@ -126,6 +128,14 @@ namespace Movies.Web.Services
 
             return compacted;
 
+        }
+
+        private Rating GetRating(MovieDetailResponse movie)
+        {
+            if (movie.Ratings != null && movie.Ratings.Count > 0)
+                return movie.Ratings[0];
+
+            return new Rating();
         }
 
         private string AddActorsArray(MovieDetailResponse movie, string docJson)
