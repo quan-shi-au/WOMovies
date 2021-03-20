@@ -1,4 +1,5 @@
-﻿using Movies.Web.Models;
+﻿using Microsoft.Extensions.Options;
+using Movies.Web.Models;
 using Movies.Web.Services.Interfaces;
 using Newtonsoft.Json;
 using System;
@@ -11,11 +12,17 @@ namespace Movies.Web.Services
 {
     public class MovieApiService : IMovieApiService
     {
+        private readonly MovieApiOptions _options;
+        public MovieApiService(IOptions<MovieApiOptions> options)
+        {
+            _options = options.Value;
+        }
+
         public async Task<SearchResponse> SearchByTitle(string title)
         {
             using (var client = new HttpClient())
             {
-                var requestUri = new Uri($"http://www.omdbapi.com/?apikey=4f731024&s={title}");
+                var requestUri = new Uri($"http://www.omdbapi.com/?apikey={_options.ApiKey}&s={title}");
                 var response = await client.GetAsync(requestUri);
 
                 var txtResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -32,7 +39,7 @@ namespace Movies.Web.Services
         {
             using (var client = new HttpClient())
             {
-                var requestUri = new Uri($"http://www.omdbapi.com/?apikey=4f731024&i={imdbId}");
+                var requestUri = new Uri($"http://www.omdbapi.com/?apikey={_options.ApiKey}&i={imdbId}");
                 var response = await client.GetAsync(requestUri);
 
                 var txtResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
