@@ -224,30 +224,25 @@ namespace Movies.Web.Services
         '@id': 'http://example.org/movies',
         'http://schema.org/name': 'Movies',
         '@type': 'http://schema.org/Movie',
-        'http://schema.org/name': 'Manu Sporny',
-        'http://schema.org/image': {'@id': 'http://manu.sporny.org/images/manu.png'},
-'http://schema.org/dateCreated' : '2020-01-01',
-'http://schema.org/director': 'directoraaa',
+        'http://schema.org/image': {'@id': '" + movie.Poster + @"'},
+'http://schema.org/dateCreated' : '" + movie.Year.ValidateYear() + @"',
+'http://schema.org/director': '" + movie.Director + @"',
 'http://schema.org/review': {
     '@type': 'http://schema.org/Review',
     'http://schema.org/reviewRating': {
                 '@type': 'http://schema.org/Rating',
-                'http://schema.org/ratingValue': '5'
+                'http://schema.org/ratingValue': '" + movie.Ratings[0].Value + @"'
               },
               'http://schema.org/author': {
                 '@type': 'http://schema.org/Person',
-                'http://schema.org/name': 'John D.'
+                'http://schema.org/name': '" + movie.Ratings[0].Source + @"'
               },
-              'http://schema.org/reviewBody': 'Heartbreaking, inpsiring, moving. Bradley Cooper is a triple threat.'
+              'http://schema.org/reviewBody': '" + movie.Ratings[0].Source + @"'
 },
 'http://schema.org/actor': [
     {
       '@type': 'http://schema.org/Person',
-      'http://schema.org/name': 'Johnny Depp'
-    },
-    {
-      '@type': 'http://schema.org/Person',
-      'http://schema.org/name': 'Penelope Cruz'
+      'http://schema.org/name': '" + movie.Actors + @"'
     }]
 }";
 
