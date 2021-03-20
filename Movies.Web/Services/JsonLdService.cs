@@ -239,7 +239,16 @@ namespace Movies.Web.Services
                 'http://schema.org/name': 'John D.'
               },
               'http://schema.org/reviewBody': 'Heartbreaking, inpsiring, moving. Bradley Cooper is a triple threat.'
-}
+},
+'http://schema.org/actor': [
+    {
+      '@type': 'http://schema.org/Person',
+      'http://schema.org/name': 'Johnny Depp'
+    },
+    {
+      '@type': 'http://schema.org/Person',
+      'http://schema.org/name': 'Penelope Cruz'
+    }]
 }";
 
             var _contextJson = @"
@@ -254,6 +263,7 @@ namespace Movies.Web.Services
     'ratingValue': 'http://schema.org/ratingValue',
     'reviewBody': 'http://schema.org/reviewBody',
     'author': 'http://schema.org/author',
+    'actor': 'http://schema.org/actor',
     'director': 'http://schema.org/director'
 }
 ";
