@@ -222,7 +222,7 @@ namespace Movies.Web.Services
             var _docJson = @"
 {
         '@id': 'http://example.org/movies',
-        'http://schema.org/name': 'Movies',
+        'http://schema.org/name': '" + movie.Title.EscapeString() + @"',
         '@type': 'http://schema.org/Movie',
         'http://schema.org/image': {'@id': '" + movie.Poster + @"'},
 'http://schema.org/dateCreated' : '" + movie.Year.ValidateYear() + @"',
@@ -239,12 +239,30 @@ namespace Movies.Web.Services
               },
               'http://schema.org/reviewBody': '" + movie.Ratings[0].Source + @"'
 },
-'http://schema.org/actor': [
-    {
-      '@type': 'http://schema.org/Person',
-      'http://schema.org/name': '" + movie.Actors + @"'
-    }]
-}";
+'http://schema.org/actor': [";
+
+
+            var isFirst = true;
+            var actors = movie.Actors.Split(",");
+            foreach (var actor in actors)
+            {
+                if (isFirst)
+                    isFirst = false;
+                else
+                    _docJson += ",";
+
+                _docJson += @"
+
+                {
+                    '@type': 'http://schema.org/Person',
+                    'http://schema.org/name': '" + actor + @"'
+                }
+            ";
+            }
+
+            _docJson += "]}";
+
+
 
             var _contextJson = @"
 {
