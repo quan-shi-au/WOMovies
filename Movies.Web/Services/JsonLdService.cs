@@ -66,19 +66,32 @@ namespace Movies.Web.Services
 {
         '@id': 'http://example.org/movies',
         'http://schema.org/name': 'Movies',
-        '@type': 'http://schema.org/Movie',
-        'http://schema.org/name': 'Manu Sporny',
-        'http://schema.org/image': {'@id': 'http://manu.sporny.org/images/manu.png'},
-'http://schema.org/dateCreated' : '2020-01-01',
-'http://schema.org/director': 'directoraaa'
+        '@type': 'http://schema.org/ItemList',
+ 'http://schema.org/itemListElement': [{
+        '@type': 'http://schema.org/ListItem',
+'http://schema.org/position': 1,
+        'http://schema.org/item': {
+            '@type': 'http://schema.org/Movie',
+            'http://schema.org/name': 'Manu Sporny',
+            'http://schema.org/image': { '@id': 'http://manu.sporny.org/images/manu.png'},
+            'http://schema.org/dateCreated' : '2020-01-01',
+            'http://schema.org/director': 'directoraaa',
+            'http://schema.org/url': 'test.url'
+        }
+        }]
 }";
 
             var _contextJson = @"
 {
     'name': 'http://schema.org/name',
-    'member': 'http://schema.org/items',
+    'ListItem': 'http://schema.org/ListItem',
+    'item': 'http://schema.org/item',
+    'itemListElement': 'http://schema.org/itemListElement',
     'image': {'@id': 'http://schema.org/image', '@type': '@id'},
     'Movie': 'http://schema.org/Movie',
+    'dateCreated': 'http://schema.org/dateCreated',
+    'url': 'http://schema.org/url',
+    'position': 'http://schema.org/position',
     'dateCreated': 'http://schema.org/dateCreated',
     'director': 'http://schema.org/director'
 }
@@ -95,7 +108,8 @@ namespace Movies.Web.Services
         }
 
 
-        public JObject GetMovieDetailObject(MovieDetailResponse movie)
+
+        public JObject GetMovieDetailObject1(MovieDetailResponse movie)
         {
             var _docJson = @"
 {
@@ -188,6 +202,39 @@ namespace Movies.Web.Services
         }
 
 
+        public JObject GetMovieDetailObject(MovieDetailResponse movie)
+        {
+            var _docJson = @"
+{
+        '@id': 'http://example.org/movies',
+        'http://schema.org/name': 'Movies',
+        '@type': 'http://schema.org/Movie',
+        'http://schema.org/name': 'Manu Sporny',
+        'http://schema.org/image': {'@id': 'http://manu.sporny.org/images/manu.png'},
+'http://schema.org/dateCreated' : '2020-01-01',
+'http://schema.org/director': 'directoraaa'
+}";
+
+            var _contextJson = @"
+{
+    'name': 'http://schema.org/name',
+    'member': 'http://schema.org/items',
+    'image': {'@id': 'http://schema.org/image', '@type': '@id'},
+    'Movie': 'http://schema.org/Movie',
+    'dateCreated': 'http://schema.org/dateCreated',
+    'director': 'http://schema.org/director'
+}
+";
+
+            var doc = JObject.Parse(_docJson);
+            var context = JObject.Parse(_contextJson);
+            var opts = new JsonLdOptions();
+            var compacted = JsonLdProcessor.Compact(doc, context, opts);
+
+
+            return compacted;
+
+        }
 
     }
 }
